@@ -27,7 +27,6 @@ public:
 
 private slots:
     void on_saveScreenshot_clicked();
-//    void on_cancelButton_clicked();
 
     void on_pushButton_clicked();
 

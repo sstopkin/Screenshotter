@@ -70,16 +70,6 @@
       <height>151</height>
      </rect>
     </property>
-    <item>
-     <property name="text">
-      <string>/home/best</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>/home/best/Загрузки</string>
-     </property>
-    </item>
    </widget>
   </widget>
   <widget class="QPushButton" name="cancelButton">

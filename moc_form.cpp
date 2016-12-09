@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Form_t {
     QByteArrayData data[7];
-    char stringdata0[105];
+    char stringdata0[97];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,15 +32,15 @@ static const qt_meta_stringdata_Form_t qt_meta_stringdata_Form = {
 QT_MOC_LITERAL(0, 0, 4), // "Form"
 QT_MOC_LITERAL(1, 5, 25), // "on_saveScreenshot_clicked"
 QT_MOC_LITERAL(2, 31, 0), // ""
-QT_MOC_LITERAL(3, 32, 23), // "on_cancelButton_clicked"
-QT_MOC_LITERAL(4, 56, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(5, 78, 11), // "imageLoaded"
-QT_MOC_LITERAL(6, 90, 14) // "QNetworkReply*"
+QT_MOC_LITERAL(3, 32, 21), // "on_pushButton_clicked"
+QT_MOC_LITERAL(4, 54, 11), // "imageLoaded"
+QT_MOC_LITERAL(5, 66, 14), // "QNetworkReply*"
+QT_MOC_LITERAL(6, 81, 15) // "closeAllWindows"
 
     },
     "Form\0on_saveScreenshot_clicked\0\0"
-    "on_cancelButton_clicked\0on_pushButton_clicked\0"
-    "imageLoaded\0QNetworkReply*"
+    "on_pushButton_clicked\0imageLoaded\0"
+    "QNetworkReply*\0closeAllWindows"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,14 +60,14 @@ static const uint qt_meta_data_Form[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   34,    2, 0x08 /* Private */,
        3,    0,   35,    2, 0x08 /* Private */,
-       4,    0,   36,    2, 0x08 /* Private */,
-       5,    1,   37,    2, 0x08 /* Private */,
+       4,    1,   36,    2, 0x08 /* Private */,
+       6,    0,   39,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 5,    2,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 6,    2,
 
        0        // eod
 };
@@ -79,15 +79,15 @@ void Form::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_saveScreenshot_clicked(); break;
-        case 1: _t->on_cancelButton_clicked(); break;
-        case 2: _t->on_pushButton_clicked(); break;
-        case 3: _t->imageLoaded((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
+        case 1: _t->on_pushButton_clicked(); break;
+        case 2: _t->imageLoaded((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
+        case 3: _t->closeAllWindows(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 3:
+        case 2:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:

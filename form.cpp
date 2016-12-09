@@ -11,12 +11,14 @@
 
 #include <QRegExp>
 #include "successdialog.h"
+#include "utils.h"
 
 Form::Form(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Form)
 {
     ui->setupUi(this);
+    this->ui->listWidget->addItems(Utils::loadPaths());
     this->ui->listWidget->setCurrentRow(0);
     shootScreen();
     capturedDate = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");

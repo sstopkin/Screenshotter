@@ -52,8 +52,6 @@ public:
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(410, 40, 241, 171));
         listWidget = new QListWidget(groupBox);
-        new QListWidgetItem(listWidget);
-        new QListWidgetItem(listWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(0, 20, 241, 151));
         cancelButton = new QPushButton(Form);
@@ -74,15 +72,6 @@ public:
         screenshotLabel->setText(QString());
         saveScreenshot->setText(QApplication::translate("Form", "Save", 0));
         groupBox->setTitle(QApplication::translate("Form", "Path", 0));
-
-        const bool __sortingEnabled = listWidget->isSortingEnabled();
-        listWidget->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("Form", "/home/best", 0));
-        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
-        ___qlistwidgetitem1->setText(QApplication::translate("Form", "/home/best/\320\227\320\260\320\263\321\200\321\203\320\267\320\272\320\270", 0));
-        listWidget->setSortingEnabled(__sortingEnabled);
-
         cancelButton->setText(QApplication::translate("Form", "Cancel", 0));
         pushButton->setText(QApplication::translate("Form", "Send to img", 0));
     } // retranslateUi
