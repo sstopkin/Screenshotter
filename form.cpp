@@ -5,11 +5,14 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QKeyEvent>
+#include <QStandardPaths>
+#include <QFileDialog>
+#include <QImageWriter>
+#include <QRegExp>
 
 #include "form.h"
 #include "ui_form.h"
 
-#include <QRegExp>
 #include "successdialog.h"
 #include "utils.h"
 
@@ -22,8 +25,9 @@ Form::Form(QWidget *parent) :
     this->ui->listWidget->setCurrentRow(0);
     shootScreen();
     capturedDate = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    targetFilename = generateFilename(capturedDate);
-    this->ui->screenshotFileName->setText(targetFilename + ".png");
+    const QString format = ".png";//TODO: move to configuration
+    targetFilename = generateFilename(capturedDate)+format;
+    this->ui->screenshotFileName->setText(targetFilename);
 
     connect(this->ui->cancelButton,&QPushButton::clicked,this,&Form::closeAllWindows);
 }
@@ -47,44 +51,42 @@ void Form::shootScreen()
     originalPixmap = screen->grabWindow(0);
     updateScreenshotLabel();
 
-    //    newScreenshotButton->setDisabled(false);
-    //    if (hideThisWindowCheckBox->isChecked())
-    //        show();
     QApplication::beep();
 }
 
-void Form::saveScreenshot(QString filePath)
+void Form::saveScreenshot(QString fullFileName)
 {
-
-
-    if (!originalPixmap.save(filePath+"/"+targetFilename+".png")) {
+    if (!originalPixmap.save(fullFileName)) {
         QMessageBox::warning(this, tr("Save Error"), tr("The image could not be saved to \"%1\".")
-                             .arg(QDir::toNativeSeparators(filePath+"/"+targetFilename)));
+                             .arg(QDir::toNativeSeparators(fullFileName)));
     }
 }
 
-//void Form::saveToCustomPath(){
-    //    const QString format = "png";
-    //    QString initialPath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-    //    if (initialPath.isEmpty())
-    //        initialPath = QDir::currentPath();
-    //    initialPath += tr("/untitled.") + format;
 
-    //    QFileDialog fileDialog(this, tr("Save As"), initialPath);
-    //    fileDialog.setAcceptMode(QFileDialog::AcceptSave);
-    //    fileDialog.setFileMode(QFileDialog::AnyFile);
-    //    fileDialog.setDirectory(initialPath);
-    //    QStringList mimeTypes;
-    //    foreach (const QByteArray &bf, QImageWriter::supportedMimeTypes())
-    //        mimeTypes.append(QLatin1String(bf));
-    //    fileDialog.setMimeTypeFilters(mimeTypes);
-    //    fileDialog.selectMimeTypeFilter("image/" + format);
-    //    fileDialog.setDefaultSuffix(format);
-    //    if (fileDialog.exec() != QDialog::Accepted)
-    //        return;
-    //    const QString fileName = fileDialog.selectedFiles().first();
-    //    saveScreenshot(path);
-//}
+void Form::saveToCustomPath(){
+
+        QString initialPath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+        if (initialPath.isEmpty())
+            initialPath = QDir::currentPath();
+        initialPath += "/"+ targetFilename;
+
+        QFileDialog fileDialog(this, tr("Save As"), initialPath);
+        fileDialog.setAcceptMode(QFileDialog::AcceptSave);
+        fileDialog.setFileMode(QFileDialog::AnyFile);
+        fileDialog.setDirectory(initialPath);
+//        QStringList mimeTypes;
+//        foreach (const QByteArray &bf, QImageWriter::supportedMimeTypes())
+//            mimeTypes.append(QLatin1String(bf));
+//        fileDialog.setMimeTypeFilters(mimeTypes);
+//        fileDialog.selectMimeTypeFilter("image/" + format);
+//        fileDialog.setDefaultSuffix(format);
+        if (fileDialog.exec() != QDialog::Accepted)
+            return;
+        const QString outFile = fileDialog.selectedFiles().first();
+        qDebug() << "Custom path:" << outFile;
+        saveScreenshot(outFile);
+        closeAllWindows();
+}
 
 void Form::updateScreenshotLabel()
 {
@@ -96,16 +98,25 @@ void Form::updateScreenshotLabel()
 void Form::on_saveScreenshot_clicked()
 {
     QString path = this->ui->listWidget->currentItem()->text();
-    qDebug() << path << "/" << targetFilename << ".png";
-    saveScreenshot(path);
-    closeAllWindows();
+    QRegExp rx("(http|ftp|https)://?");
+    rx.indexIn(path);
+    qDebug() << "Detecting upload/save mode " << path << rx.cap(0);
+    if(rx.cap(0)!=""){
+        qDebug() << "URL mode";
+        qDebug() << "/tmp/" << targetFilename;
+        saveScreenshot("/tmp/"+targetFilename);
+        uploadScreenshot(targetFilename,"/tmp/"+targetFilename);
+    } else{
+        qDebug() << "FILE mode";
+        qDebug() << path << targetFilename;
+        saveScreenshot(path+"/"+targetFilename);
+        closeAllWindows();
+    }
 }
 
 void Form::on_pushButton_clicked()
 {
-    qDebug() << "/tmp" << targetFilename << ".png";
-    saveScreenshot("/tmp");
-    uploadScreenshot(targetFilename+".png","/tmp/"+targetFilename+".png");
+    saveToCustomPath();
 }
 
 void Form::uploadScreenshot(QString fileName, QString fullPath){

@@ -6,8 +6,8 @@
 
 QT       += core gui network
 
-VERSION = 0.3
-DEFINES += VERSION_STRING=\\\"0.3.0\\\"
+VERSION = 0.4
+DEFINES += VERSION_STRING=\\\"0.4.0\\\"
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

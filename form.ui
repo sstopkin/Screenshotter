@@ -95,7 +95,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Send to img</string>
+    <string>Save to</string>
    </property>
   </widget>
  </widget>

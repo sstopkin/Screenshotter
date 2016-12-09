@@ -46,6 +46,7 @@ private:
     void shootScreen();
     void saveScreenshot(QString);
     void uploadScreenshot(QString, QString);
+    void saveToCustomPath();
 
     void keyPressEvent(QKeyEvent *e);
 };
