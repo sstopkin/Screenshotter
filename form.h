@@ -47,6 +47,8 @@ private:
     void shootScreen();
     void saveScreenshot(QString);
     void uploadScreenshot(QString, QString);
+
+    void keyPressEvent(QKeyEvent *e);
 };
 
 #endif // FORM_H

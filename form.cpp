@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QMessageBox>
 #include <QDir>
+#include <QKeyEvent>
 
 #include "form.h"
 #include "ui_form.h"
@@ -160,4 +161,12 @@ void Form::closeAllWindows()
 //         this, SLOT (closeAllWindows()));
 //    connect(exitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
     QApplication::exit();
+}
+
+void Form::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() == Qt::Key_Escape) {
+        qDebug() << "escape key has pressed";
+        closeAllWindows();
+    }
 }
