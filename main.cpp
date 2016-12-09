@@ -7,11 +7,21 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationName("screenshot");
+    a.setApplicationName("Screenshotter");
     a.setApplicationVersion(VERSION_STRING);
+
     QCommandLineParser parser;
+    parser.setApplicationDescription("Screenshotter app");
+    parser.addHelpOption();//Windows only :(
     parser.addVersionOption();
+
+    QCommandLineOption workingMode (QStringList() << "m" << "mode",
+                                    QCoreApplication::translate("main", "Working mode"),
+                                    "screenshot");
+    parser.addOption(workingMode);
     parser.process(a);
+
+    QString mode = parser.value(workingMode);
 
     Form w;
     w.setGeometry(
@@ -22,7 +32,17 @@ int main(int argc, char *argv[])
                     qApp->desktop()->availableGeometry()
                     )
                 );
-    w.show();
+    qDebug() << "mode:" << mode;
 
-    return a.exec();
+    if (mode == "screenshot"){
+        fprintf(stdout, "Started mode: %s\n", qPrintable(mode));
+        w.show();
+    }
+    else {
+        fprintf(stderr, "Unsupported mode: %s\n", qPrintable(mode));
+        return 1;
+    }
+
+    a.exec();
+    return 0;
 }
