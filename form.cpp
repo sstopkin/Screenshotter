@@ -105,7 +105,7 @@ void Form::on_saveScreenshot_clicked()
         qDebug() << "URL mode";
         qDebug() << "/tmp/" << targetFilename;
         saveScreenshot("/tmp/"+targetFilename);
-        uploadScreenshot(targetFilename,"/tmp/"+targetFilename);
+        uploadScreenshot(path, targetFilename,"/tmp/"+targetFilename);
     } else{
         qDebug() << "FILE mode";
         qDebug() << path << targetFilename;
@@ -119,7 +119,7 @@ void Form::on_pushButton_clicked()
     saveToCustomPath();
 }
 
-void Form::uploadScreenshot(QString fileName, QString fullPath){
+void Form::uploadScreenshot(QString urlPath, QString fileName, QString fullPath){
 
     qDebug() << QSslSocket::sslLibraryVersionString();
 
@@ -140,7 +140,7 @@ void Form::uploadScreenshot(QString fileName, QString fullPath){
 
     multiPart->append(imagePart);
 
-    QUrl url("http://img.omsklug.com/upload");
+    QUrl url(urlPath);
     QNetworkRequest request(url);
 
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);

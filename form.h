@@ -45,7 +45,7 @@ private:
     void updateScreenshotLabel();
     void shootScreen();
     void saveScreenshot(QString);
-    void uploadScreenshot(QString, QString);
+    void uploadScreenshot(QString, QString, QString);
     void saveToCustomPath();
 
     void keyPressEvent(QKeyEvent *e);
