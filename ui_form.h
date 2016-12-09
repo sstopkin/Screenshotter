@@ -73,7 +73,7 @@ public:
         saveScreenshot->setText(QApplication::translate("Form", "Save", 0));
         groupBox->setTitle(QApplication::translate("Form", "Path", 0));
         cancelButton->setText(QApplication::translate("Form", "Cancel", 0));
-        pushButton->setText(QApplication::translate("Form", "Send to img", 0));
+        pushButton->setText(QApplication::translate("Form", "Save to", 0));
     } // retranslateUi
 
 };
