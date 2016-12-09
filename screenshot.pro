@@ -17,12 +17,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     form.cpp \
-    successdialog.cpp
+    successdialog.cpp \
+    utils.cpp
 
 HEADERS  += \
     form.h \
-    successdialog.h
+    successdialog.h \
+    utils.h
 
 FORMS    += \
     form.ui \
     successdialog.ui
+
+DISTFILES += \
+    paths.properties

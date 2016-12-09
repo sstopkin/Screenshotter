@@ -7,7 +7,10 @@ v0.2 added save to file.
 v0.1 initial test.  
   
 # Commandline arguments  
--m | --mode screenshot  
+Options:  
+  -h, --help               Displays this help.  
+  -v, --version            Displays version information.  
+  -m, --mode <screenshot>  Working mode.  
   
 # License  
 MIT  

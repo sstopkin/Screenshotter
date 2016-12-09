@@ -1,8 +1,9 @@
 #include <QApplication>
-#include "form.h"
 #include <QStyle>
 #include <QDesktopWidget>
 #include <QCommandLineParser>
+
+#include "form.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
 
     QCommandLineOption workingMode (QStringList() << "m" << "mode",
-                                    QCoreApplication::translate("main", "Working mode"),
+                                    QCoreApplication::translate("main", "Working mode."),
                                     "screenshot");
     parser.addOption(workingMode);
     parser.process(a);
@@ -35,11 +36,11 @@ int main(int argc, char *argv[])
     qDebug() << "mode:" << mode;
 
     if (mode == "screenshot"){
-        fprintf(stdout, "Started mode: %s\n", qPrintable(mode));
+        QTextStream(stdout) << "Started mode: " << mode << endl;
         w.show();
     }
     else {
-        fprintf(stderr, "Unsupported mode: %s\n", qPrintable(mode));
+        QTextStream(stdout) << "Unsupported mode: " << mode << endl;
         return 1;
     }
 
